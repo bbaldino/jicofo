@@ -178,86 +178,86 @@ public class JibriRecorder
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void onSessionStateChanged(
-        JibriSession jibriSession, JibriIq.Status newStatus, XMPPError error)
-    {
-        if (this.jibriSession != jibriSession)
-        {
-            logger.error(
-                "onSessionStateChanged for unknown session: " + jibriSession);
-            return;
-        }
+//    /**
+//     * {@inheritDoc}
+//     */
+//    @Override
+//    public void onSessionStateChanged(
+//        JibriSession jibriSession, JibriIq.Status newStatus, XMPPError error)
+//    {
+//        if (this.jibriSession != jibriSession)
+//        {
+//            logger.error(
+//                "onSessionStateChanged for unknown session: " + jibriSession);
+//            return;
+//        }
+//
+//        // FIXME go through the stop logic
+//        boolean recordingStopped
+//            = JibriIq.Status.FAILED.equals(newStatus) ||
+//                    JibriIq.Status.OFF.equals(newStatus);
+//
+//        setAvailabilityStatus(newStatus, error);
+//
+//        if (recordingStopped)
+//        {
+//            this.jibriSession = null;
+//
+//            updateJibriAvailability();
+//        }
+//    }
 
-        // FIXME go through the stop logic
-        boolean recordingStopped
-            = JibriIq.Status.FAILED.equals(newStatus) ||
-                    JibriIq.Status.OFF.equals(newStatus);
-
-        setAvailabilityStatus(newStatus, error);
-
-        if (recordingStopped)
-        {
-            this.jibriSession = null;
-
-            updateJibriAvailability();
-        }
-    }
-
-    /**
-     * The method is supposed to update Jibri availability status to OFF if we
-     * have any Jibris available or to UNDEFINED if there are no any.
-     */
-    @Override
-    protected void updateJibriAvailability()
-    {
-        // We listen to status updates coming from the current Jibri
-        // through IQs if the recording is in progress(jibriSession
-        // is not null)
-        if (jibriSession != null)
-            return;
-
-        if (jibriDetector.selectJibri() != null)
-        {
-            setAvailabilityStatus(JibriIq.Status.OFF);
-        }
-        else if (jibriDetector.isAnyInstanceConnected())
-        {
-            setAvailabilityStatus(JibriIq.Status.BUSY);
-        }
-        else
-        {
-            setAvailabilityStatus(JibriIq.Status.UNDEFINED);
-        }
-    }
-
-    private void setAvailabilityStatus(JibriIq.Status newStatus)
-    {
-        setAvailabilityStatus(newStatus, null);
-    }
-
-    private void setAvailabilityStatus(
-            JibriIq.Status newStatus, XMPPError error)
-    {
-        RecordingStatus recordingStatus = new RecordingStatus();
-
-        recordingStatus.setStatus(newStatus);
-
-        recordingStatus.setError(error);
-
-        logger.info(
-            "Publish new JIBRI status: "
-                + recordingStatus.toXML() + " in: " + conference.getRoomName());
-
-        ChatRoom2 chatRoom2 = conference.getChatRoom();
-
-        // Publish that in the presence
-        if (chatRoom2 != null)
-        {
-            meetTools.sendPresenceExtension(chatRoom2, recordingStatus);
-        }
-    }
+//    /**
+//     * The method is supposed to update Jibri availability status to OFF if we
+//     * have any Jibris available or to UNDEFINED if there are no any.
+//     */
+//    @Override
+//    protected void updateJibriAvailability()
+//    {
+//        // We listen to status updates coming from the current Jibri
+//        // through IQs if the recording is in progress(jibriSession
+//        // is not null)
+//        if (jibriSession != null)
+//            return;
+//
+//        if (jibriDetector.selectJibri() != null)
+//        {
+//            setAvailabilityStatus(JibriIq.Status.OFF);
+//        }
+//        else if (jibriDetector.isAnyInstanceConnected())
+//        {
+//            setAvailabilityStatus(JibriIq.Status.BUSY);
+//        }
+//        else
+//        {
+//            setAvailabilityStatus(JibriIq.Status.UNDEFINED);
+//        }
+//    }
+//
+//    private void setAvailabilityStatus(JibriIq.Status newStatus)
+//    {
+//        setAvailabilityStatus(newStatus, null);
+//    }
+//
+//    private void setAvailabilityStatus(
+//            JibriIq.Status newStatus, XMPPError error)
+//    {
+//        RecordingStatus recordingStatus = new RecordingStatus();
+//
+//        recordingStatus.setStatus(newStatus);
+//
+//        recordingStatus.setError(error);
+//
+//        logger.info(
+//            "Publish new JIBRI status: "
+//                + recordingStatus.toXML() + " in: " + conference.getRoomName());
+//
+//        ChatRoom2 chatRoom2 = conference.getChatRoom();
+//
+//        // Publish that in the presence
+//        if (chatRoom2 != null)
+//        {
+//            meetTools.sendPresenceExtension(chatRoom2, recordingStatus);
+//        }
+//    }
 }

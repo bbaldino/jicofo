@@ -175,12 +175,12 @@ public abstract class CommonJibriStuff
      * needs to updated. For example when the current session ends or when new
      * Jibri connects.
      */
-    protected abstract void updateJibriAvailability();
+//    protected abstract void updateJibriAvailability();
 
-    /**
-     * Starts listening for Jibri updates and calls
-     * {@link #updateJibriAvailability()} to update Jicofo presence.
-     */
+//    /**
+//     * Starts listening for Jibri updates and calls
+//     * {@link #updateJibriAvailability()} to update Jicofo presence.
+//     */
     public void init()
     {
         try
@@ -192,7 +192,7 @@ public abstract class CommonJibriStuff
             logger.error("Failed to start Jibri event handler: " + e, e);
         }
 
-        updateJibriAvailability();
+//        updateJibriAvailability();
     }
 
     /**
@@ -370,7 +370,8 @@ public abstract class CommonJibriStuff
                 case JibriEvent.STATUS_CHANGED:
                     synchronized (CommonJibriStuff.this)
                     {
-                        updateJibriAvailability();
+                        //TODO: need to handle WENT_OFFLINE here
+                        //updateJibriAvailability();
                     }
                     break;
                 default:

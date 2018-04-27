@@ -537,7 +537,8 @@ public class JibriSession
             retryAttempt = 0;
         }
 
-        owner.onSessionStateChanged(this, newStatus, error);
+        //TODO: propagate info from IQ here
+        //owner.onSessionStateChanged(this, newStatus, error);
     }
 
     /**
@@ -634,15 +635,15 @@ public class JibriSession
      */
     public interface Owner
     {
-        /**
-         * Called on {@link JibriSession} status update.
-         * @param jibriSession which status has changed
-         * @param newStatus the new status
-         * @param error optional error for {@link JibriIq.Status#FAILED}.
-         */
-        void onSessionStateChanged(
-                JibriSession      jibriSession,
-                JibriIq.Status    newStatus,
-                XMPPError         error);
+//        /**
+//         * Called on {@link JibriSession} status update.
+//         * @param jibriSession which status has changed
+//         * @param newStatus the new status
+//         * @param error optional error for {@link JibriIq.Status#FAILED}.
+//         */
+//        void onSessionStateChanged(
+//                JibriSession      jibriSession,
+//                JibriIq.Status    newStatus,
+//                XMPPError         error);
     }
 }
