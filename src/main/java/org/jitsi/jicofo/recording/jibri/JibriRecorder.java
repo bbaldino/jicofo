@@ -133,6 +133,7 @@ public class JibriRecorder
                     || recordingMode.equals(RecordingMode.UNDEFINED))
             || (emptyStreamId && recordingMode.equals(RecordingMode.FILE)))
         {
+            String sessionId = Utils.generateSessionId(SESSION_ID_LENGTH);
             jibriSession
                 = new JibriSession(
                     this,
@@ -141,13 +142,15 @@ public class JibriRecorder
                     connection,
                     scheduledExecutor,
                     jibriDetector,
-                    false, null, displayName, streamID,
+                    false, null, displayName, streamID, sessionId,
                     classLogger);
             // Try starting Jibri on separate thread with retries
             jibriSession.start();
             // This will ACK the request immediately to simplify the flow,
             // any error will be passed with the FAILED state
-            return IQ.createResultIQ(iq);
+            System.out.println("SENDING RESULT WITH SESSION ID");
+            return JibriIq.createResult(iq, sessionId);
+//            return IQ.createResultIQ(iq);
         }
         else if (emptyStreamId && !recordingMode.equals(RecordingMode.FILE))
         {

@@ -204,6 +204,7 @@ public class JibriSession
             String sipAddress,
             String displayName,
             String streamID,
+            String sessionId,
             Logger logLevelDelegate)
     {
         this.owner = owner;
