@@ -192,6 +192,24 @@ public abstract class CommonJibriStuff
             logger.error("Failed to start Jibri event handler: " + e, e);
         }
 
+        //TEMP CODE TO MAKE THE WEB SEE A JIBRI IS AVAILABLE
+        RecordingStatus recordingStatus = new RecordingStatus();
+
+        recordingStatus.setStatus(JibriIq.Status.OFF);
+
+        logger.info(
+            "Publish new JIBRI status: "
+                + recordingStatus.toXML() + " in: " + conference.getRoomName());
+
+        ChatRoom2 chatRoom2 = conference.getChatRoom();
+
+        // Publish that in the presence
+        if (chatRoom2 != null)
+        {
+            meetTools.sendPresenceExtension(chatRoom2, recordingStatus);
+        }
+        //END TEMP CODE TO MAKE THE WEB SEE A JIBRI IS AVAILABLE
+
 //        updateJibriAvailability();
     }
 
