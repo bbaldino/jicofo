@@ -78,6 +78,7 @@ public class OperationSetJibri
     @Override
     public IQ handleIQRequest(IQ iq)
     {
+        System.out.println("Jibri OPSET seeing iq " + ((JibriIq)iq).toString());
         synchronized (jibris)
         {
             for (CommonJibriStuff jibri : jibris)

@@ -140,6 +140,7 @@ public class JibriSipGateway
                         false,
                         sipAddress,
                         displayName, null, sessionId,
+                        conference.getChatRoom(),
                         classLogger);
             sipSessions.put(sipAddress, jibriSession);
             // Try starting Jibri

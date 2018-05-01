@@ -26,6 +26,7 @@ import org.jitsi.jicofo.*;
 import org.jitsi.protocol.xmpp.*;
 
 import org.jivesoftware.smack.packet.*;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jxmpp.jid.*;
 import org.jxmpp.jid.impl.*;
 import org.jxmpp.jid.parts.*;
@@ -672,6 +673,12 @@ public class MockMultiUserChat
     public void setMembersWhiteList(List<String> members)
     {
 
+    }
+
+    @Override
+    public MultiUserChat getMuc()
+    {
+        return null;
     }
 
     /**

@@ -1240,6 +1240,12 @@ public class ChatRoomImpl
         }
     }
 
+    @Override
+    public MultiUserChat getMuc()
+    {
+        return muc;
+    }
+
     class MemberListener
         implements ParticipantStatusListener
     {

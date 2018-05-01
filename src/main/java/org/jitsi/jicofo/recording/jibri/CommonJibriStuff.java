@@ -26,7 +26,9 @@ import org.jitsi.osgi.*;
 import org.jitsi.protocol.xmpp.*;
 import org.jitsi.util.*;
 
+import org.jivesoftware.smack.SmackException;
 import org.jivesoftware.smack.packet.*;
+import org.jivesoftware.smack.packet.Message;
 import org.jxmpp.jid.*;
 
 import java.util.*;
@@ -270,9 +272,9 @@ public abstract class CommonJibriStuff
      */
     public final synchronized IQ handleIQRequest(JibriIq iq)
     {
-        if (logger.isDebugEnabled())
+        if (true || logger.isDebugEnabled())
         {
-            logger.debug("Jibri request. IQ: " + iq.toXML());
+            logger.info("Jibri request. IQ: " + iq.toXML());
         }
 
         // Process if it belongs to an active recording session

@@ -143,13 +143,21 @@ public class JibriRecorder
                     scheduledExecutor,
                     jibriDetector,
                     false, null, displayName, streamID, sessionId,
+                    conference.getChatRoom(),
                     classLogger);
             // Try starting Jibri on separate thread with retries
-            jibriSession.start();
+            new Thread(() -> {
+                // Spin this off in a thread so we can send the response to the
+                // original start iq before jibriSession.start
+                // sends other updates (pending, failed, etc.)
+                jibriSession.start();
+            }).start();
             // This will ACK the request immediately to simplify the flow,
             // any error will be passed with the FAILED state
-            System.out.println("SENDING RESULT WITH SESSION ID");
-            return JibriIq.createResult(iq, sessionId);
+            JibriIq res = JibriIq.createResult(iq, sessionId);
+            System.out.println("SENDING RESULT WITH SESSION ID: " + res.toXML());
+            return res;
+            //return JibriIq.createResult(iq, sessionId);
 //            return IQ.createResultIQ(iq);
         }
         else if (emptyStreamId && !recordingMode.equals(RecordingMode.FILE))

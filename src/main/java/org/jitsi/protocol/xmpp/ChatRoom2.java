@@ -19,8 +19,10 @@ package org.jitsi.protocol.xmpp;
 
 import net.java.sip.communicator.service.protocol.*;
 
+import net.java.sip.communicator.service.protocol.Message;
 import org.jitsi.jicofo.*;
 import org.jivesoftware.smack.packet.*;
+import org.jivesoftware.smackx.muc.MultiUserChat;
 import org.jxmpp.jid.*;
 
 import java.util.*;
@@ -81,4 +83,15 @@ public interface ChatRoom2
                         Collection<ExtensionElement> toAdd);
 
     void setConference(JitsiMeetConference conference);
+
+    /**
+     * Exposes the MUC so that it can be used directly
+     * NOTE: this is not ideal.  Unfortunately, Jicofo
+     * needs to now be able to send messages to the conference
+     * MUC and the {@link #sendMessage(Message)} takes the custom
+     * Jitsi version of {@link Message}, not the smack one, so it can't
+     * send that via smack's {@link MultiUserChat#sendMessage(org.jivesoftware.smack.packet.Message)}
+     * @return the MultiUserChat object for this room
+     */
+    MultiUserChat getMuc();
 }
